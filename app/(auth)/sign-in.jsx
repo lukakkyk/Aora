@@ -1,11 +1,14 @@
-import { View, Text, Dimensions, Image, ScrollView } from "react-native";
+import { View, Text, Dimensions, Image, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/globalProvider";
 const SignIn = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -13,8 +16,22 @@ const SignIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {
-    console.log("hello");
+  const submit = async () => {
+    if (!form.email || !form.password) {
+      Alert.alert("Error", "Please fill al the fields");
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await signIn(form.email, form.password);
+      setUser(result);
+      setIsLogged(true);
+      router.replace("/home");
+    } catch (error) {
+      console.log("1231231", error.message);
+      Alert.alert("ragaca", error.message);
+    } finally {
+      setIsSubmitting(true);
+    }
   };
 
   return (

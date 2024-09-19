@@ -4,7 +4,6 @@ import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
 
-
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="flex items-center justify-center gap-2">
@@ -25,8 +24,6 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabLayout = () => {
-  
-
   return (
     <>
       <Tabs
@@ -104,8 +101,6 @@ const TabLayout = () => {
           }}
         />
       </Tabs>
-
-      
     </>
   );
 };
