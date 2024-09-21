@@ -28,7 +28,7 @@ const SignIn = () => {
       router.replace("/home");
     } catch (error) {
       console.log("1231231", error.message);
-      Alert.alert("ragaca", error.message);
+      Alert.alert("Error", error.message);
     } finally {
       setIsSubmitting(true);
     }
